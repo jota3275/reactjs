@@ -3,8 +3,8 @@
 const CartWidget = () => {
     return (
         <a className="nav-link carrito" href="#">
+            <span>5</span>
             <svg
-
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
                 height="24"
