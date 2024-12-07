@@ -1,9 +1,15 @@
-
+import { useContext } from "react";
+import { CartContext } from "../../context/CartContext";
+import { Link } from "react-router-dom";
 
 const CartWidget = () => {
+    const { carrito } = useContext(CartContext);
+
+    const totalItems = carrito.reduce((total, item) => total + item.cantidad, 0);
+
     return (
-        <a className="nav-link carrito" href="#">
-            <span>5</span>
+        <Link className="nav-link carrito" to="/carrito">
+            <span className="cart-count">{totalItems}</span>
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -14,8 +20,8 @@ const CartWidget = () => {
             >
                 <path d="M0 1.5A.5.5 0 0 1 .5 1h1a.5.5 0 0 1 .485.379L2.89 5H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 14H4a.5.5 0 0 1-.491-.408L1.01 2H.5a.5.5 0 0 1-.5-.5zM3.14 6l1.25 6H12.5l1.25-6H3.14zM5 12a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm6 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
             </svg>
-        </a>
-    )
-}
+        </Link>
+    );
+};
 
-export default CartWidget
+export default CartWidget;

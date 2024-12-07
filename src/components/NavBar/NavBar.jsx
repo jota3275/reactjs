@@ -12,13 +12,13 @@ function NavBar() {
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                         <li className="nav-item">
-                            <Link className="nav-link" to="/categoria/ford">Ford</Link>
+                            <Link className="nav-link" to="/categoria/Ford">Ford</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/categoria/toyota">Toyota</Link>
+                            <Link className="nav-link" to="/categoria/Toyota">Toyota</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/categoria/chevrolet">Chevrolet</Link>
+                            <Link className="nav-link" to="/categoria/Chevrolet">Chevrolet</Link>
                         </li>
                     </ul>
                     <form className="d-flex carrito" role="search">

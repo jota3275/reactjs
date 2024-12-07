@@ -1,35 +1,35 @@
 import { useEffect, useState } from "react";
-import useApi from "../../hooks/useApi";
 import { useParams } from "react-router-dom";
-import ItemList from "../ItemList/ItemList";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { db } from "../../firebase/config";
+import ItemListComponent from "../ItemListComponent/ItemListComponent";
 
 function ItemListContainer() {
-  const { results, loading, searchProducts, error } = useApi();
+  const [productos, setProductos] = useState([]);
   const { categoria } = useParams();
 
   useEffect(() => {
-    if (categoria) {
-      searchProducts(categoria);
-    } else {
-      searchProducts("autos");
-    }
+    const productosRef = collection(db, "productos");
+
+    const q = categoria
+      ? query(productosRef, where("category", "==", categoria))
+      : productosRef;
+    getDocs(q)
+      .then((resp) => {
+        const productosData = resp.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+        }));
+        setProductos(productosData);
+      })
+      .catch((error) => {
+        console.error("Error al obtener los productos: ", error);
+      });
   }, [categoria]);
 
   return (
-    <div className="container mt-5">
-      <h1 className="text-center mb-4">Tienda de Autos</h1>
-
-      {loading ? (
-        <p className="text-center">Cargando...</p>
-      ) : error ? (
-        <p className="text-center text-danger">{error}</p>
-      ) : (
-        <ItemList products={results} />
-      )}
-
-      {!loading && results.length === 0 && !error && (
-        <p className="text-center text-muted">No se encontraron autos.</p>
-      )}
+    <div>
+      <ItemListComponent productos={productos} />
     </div>
   );
 }
